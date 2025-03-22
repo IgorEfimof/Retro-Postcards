@@ -6,7 +6,7 @@
     <title>Корзина</title>
     <style>
         body { font-family: Arial, sans-serif; background-color: #ffefd5; text-align: center; }
-        .cart-item { margin: 10px; padding: 10px; border: 1px solid #ccc; background: white; display: inline-block; }
+        .cart-item { margin: 10px; padding: 10px; border: 1px solid #ccc; background: white; display: inline-block; width: 200px; }
         .btn { margin: 10px; padding: 10px; background: yellow; border: none; cursor: pointer; }
         img { width: 100px; display: block; margin: auto; }
     </style>
@@ -51,8 +51,8 @@
                 return;
             }
             let mailBody = cart.map(item => `${item.name} - ${item.price} руб.`).join('%0A');
-            let mailImages = cart.map(item => item.image).join('%0A');
-            window.location.href = `mailto:your-email@example.com?subject=Заказ открыток&body=${mailBody}%0A%0AИзображения:%0A${mailImages}`;
+            let mailImages = cart.map(item => `Изображение: ${item.image}`).join('%0A');
+            window.location.href = `mailto:your-email@example.com?subject=Заказ открыток&body=${mailBody}%0A%0A${mailImages}`;
         }
 
         function clearCart() {
