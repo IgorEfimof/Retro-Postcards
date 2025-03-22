@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #ffefd5; text-align: center; }
+        .cart-item { margin: 10px; padding: 10px; border: 1px solid #ccc; background: white; display: inline-block; }
+        .btn { margin: 10px; padding: 10px; background: yellow; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Ваша корзина</h1>
+    <div id="cart-items"></div>
+    <button class="btn" onclick="sendOrder()">Отправить заказ</button>
+    <button class="btn" onclick="clearCart()">Очистить корзину</button>
+    <br>
+    <a href="index.html">Вернуться в магазин</a>
+    
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let cartContainer = document.getElementById('cart-items');
+
+        function displayCart() {
+            cartContainer.innerHTML = '';
+            if (cart.length === 0) {
+                cartContainer.innerHTML = '<p>Корзина пуста</p>';
+                return;
+            }
+            cart.forEach((item, index) => {
+                let div = document.createElement('div');
+                div.classList.add('cart-item');
+                div.innerHTML = `<p>${item.name} - ${item.price} руб.</p>
+                                 <button onclick="removeItem(${index})">Удалить</button>`;
+                cartContainer.appendChild(div);
+            });
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCart();
+        }
+
+        function sendOrder() {
+            if (cart.length === 0) {
+                alert('Корзина пуста');
+                return;
+            }
+            let mailBody = cart.map(item => `${item.name} - ${item.price} руб.`).join('%0A');
+            window.location.href = `mailto:your-email@example.com?subject=Заказ открыток&body=${mailBody}`;
+        }
+
+        function clearCart() {
+            localStorage.removeItem('cart');
+            cart = [];
+            displayCart();
+        }
+
+        displayCart();
+    </script>
+</body>
+</html>
