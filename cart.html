@@ -52,7 +52,7 @@
             }
             let mailBody = cart.map(item => `${item.name} - ${item.price} руб.`).join('%0A');
             let mailImages = cart.map(item => `Изображение: ${item.image}`).join('%0A');
-            window.location.href = `mailto:your-email@example.com?subject=Заказ открыток&body=${mailBody}%0A%0A${mailImages}`;
+            window.location.href = `mailto:efimof.ig@yandex.ru?subject=Заказ открыток&body=${mailBody}%0A%0A${mailImages}`;
         }
 
         function clearCart() {
