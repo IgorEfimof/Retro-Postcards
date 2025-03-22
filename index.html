@@ -3,41 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Открытки из прошлого века</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Магазин открыток</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #ffefd5; text-align: center; }
+        .card { display: inline-block; margin: 20px; padding: 10px; border: 1px solid #ccc; background: white; }
+        .cart { position: fixed; top: 10px; right: 10px; background: yellow; padding: 10px; cursor: pointer; }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Открытки из прошлого века</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Главная</a></li>
-                <li><a href="catalog.html">Каталог</a></li>
-                <li><a href="cart.html">Корзина</a></li>
-                <li><a href="contacts.html">Контакты</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <main>
-        <section class="categories">
-            <h2>Категории открыток</h2>
-            <div class="category-grid">
-                <a href="category.html" class="category"> <img src="cat1.jpg" alt="Рождественские открытки"> <span>Рождественские</span></a>
-                <a href="category.html" class="category"> <img src="cat2.jpg" alt="Пасхальные открытки"> <span>Пасхальные</span></a>
-                <a href="category.html" class="category"> <img src="cat3.jpg" alt="Открытки с детьми"> <span>С детьми</span></a>
-                <a href="category.html" class="category"> <img src="cat4.jpg" alt="Поздравительные открытки"> <span>Поздравительные</span></a>
-                <a href="category.html" class="category"> <img src="cat5.jpg" alt="Открытки с видами городов"> <span>Города</span></a>
-                <a href="category.html" class="category"> <img src="cat6.jpg" alt="Открытки с животными"> <span>Животные</span></a>
-                <a href="category.html" class="category"> <img src="cat7.jpg" alt="Романтические открытки"> <span>Романтика</span></a>
-                <a href="category.html" class="category"> <img src="cat8.jpg" alt="Открытки с цветами"> <span>Цветы</span></a>
-                <a href="category.html" class="category"> <img src="cat9.jpg" alt="Редкие открытки"> <span>Редкие</span></a>
-            </div>
-        </section>
-    </main>
-    
-    <footer>
-        <p>&copy; 2025 Открытки из прошлого века. Все права защищены.</p>
-    </footer>
+    <h1>Добро пожаловать в магазин открыток!</h1>
+    <div class="cart" onclick="viewCart()">Корзина (<span id="cart-count">0</span>)</div>
+    <div id="catalog">
+        <div class="card" data-name="Открытка 1" data-price="200">
+            <img src="card1.jpg" width="100" alt="Открытка 1">
+            <p>Открытка 1 - 200 руб.</p>
+            <button onclick="addToCart(this)">Добавить в корзину</button>
+        </div>
+        <div class="card" data-name="Открытка 2" data-price="250">
+            <img src="card2.jpg" width="100" alt="Открытка 2">
+            <p>Открытка 2 - 250 руб.</p>
+            <button onclick="addToCart(this)">Добавить в корзину</button>
+        </div>
+    </div>
+
+    <script>
+        let cart = [];
+
+        function addToCart(button) {
+            let card = button.parentElement;
+            let name = card.getAttribute('data-name');
+            let price = card.getAttribute('data-price');
+            cart.push({ name, price });
+            document.getElementById('cart-count').innerText = cart.length;
+        }
+
+        function viewCart() {
+            let message = cart.map(item => `${item.name} - ${item.price} руб.`).join('\n');
+            if (cart.length > 0) {
+                message += '\n\nОтправить заказ?';
+                if (confirm(message)) {
+                    sendOrder();
+                }
+            } else {
+                alert('Корзина пуста');
+            }
+        }
+
+        function sendOrder() {
+            let mailBody = cart.map(item => `${item.name} - ${item.price} руб.`).join('%0A');
+            window.location.href = `mailto:your-email@example.com?subject=Заказ открыток&body=${mailBody}`;
+        }
+    </script>
 </body>
 </html>
+
