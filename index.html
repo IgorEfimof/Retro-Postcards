@@ -5,63 +5,204 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Магазин открыток</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #ffefd5; text-align: center; }
-        .category { display: inline-block; margin: 20px; padding: 10px; border: 1px solid #ccc; background: white; width: 200px; }
-        .cart { position: fixed; top: 10px; right: 10px; background: yellow; padding: 10px; cursor: pointer; }
-        img { width: 150px; height: auto; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffefd5;
+            text-align: center;
+        }
+
+        .category {
+            display: inline-block;
+            margin: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background: white;
+            width: 200px;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .category img {
+            width: 150px;
+            height: auto;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 5px;
+        }
+
+        .category img:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 8px 15px;
+            background-color: #ffb6c1;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ff7f9e;
+        }
+
+        .cart {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: yellow;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 0;
+            right: 10px;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @media (max-width: 600px) {
+            #categories {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .category {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
     <h1>Добро пожаловать в магазин открыток!</h1>
-    <div class="cart" onclick="window.location.href='cart.html'">Корзина (<span id="cart-count">0</span>)</div>
+    <div class="cart" onclick="window.location.href='cart.html'">
+        Корзина (<span id="cart-count">0</span>)
+    </div>
     <div id="categories">
-        <div class="category">
-            <img src="birthday.jpg" alt="День Рождения">
+        <div class="category" onclick="openModal('birthday')">
+            <img src="images/birthday.jpg" alt="День Рождения">
             <p>Открытки на День Рождения</p>
-            <button onclick="window.location.href='birthday.html'">Перейти в категорию</button>
+            <button>Перейти в категорию</button>
         </div>
-        <div class="category">
-            <img src="holiday.jpg" alt="Праздничные">
+        <div class="category" onclick="openModal('holiday')">
+            <img src="images/holiday.jpg" alt="Праздничные">
             <p>Праздничные открытки</p>
-            <button onclick="window.location.href='holiday.html'">Перейти в категорию</button>
+            <button>Перейти в категорию</button>
         </div>
-        <div class="category">
-            <img src="love.jpg" alt="Любовные">
+        <div class="category" onclick="openModal('love')">
+            <img src="images/love.jpg" alt="Любовные">
             <p>Открытки с любовью</p>
-            <button onclick="window.location.href='love.html'">Перейти в категорию</button>
+            <button>Перейти в категорию</button>
         </div>
-        <div class="category">
-            <img src="newyear.jpg" alt="Новый год">
+        <div class="category" onclick="openModal('newyear')">
+            <img src="images/newyear.jpg" alt="Новый год">
             <p>Новогодние открытки</p>
-            <button onclick="window.location.href='newyear.html'">Перейти в категорию</button>
+            <button>Перейти в категорию</button>
         </div>
-        <div class="category">
-            <img src="wedding.jpg" alt="Свадьба">
+        <div class="category" onclick="openModal('wedding')">
+            <img src="images/wedding.jpg" alt="Свадьба">
             <p>Свадебные открытки</p>
-            <button onclick="window.location.href='wedding.html'">Перейти в категорию</button>
+            <button>Перейти в категорию</button>
         </div>
-        <div class="category">
-            <img src="congrats.jpg" alt="Поздравления">
+        <div class="category" onclick="openModal('congrats')">
+            <img src="images/congrats.jpg" alt="Поздравления">
             <p>Поздравительные открытки</p>
-            <button onclick="window.location.href='congrats.html'">Перейти в категорию</button>
+            <button>Перейти в категорию</button>
         </div>
-        <div class="category">
-            <img src="thankyou.jpg" alt="Благодарность">
+        <div class="category" onclick="openModal('thankyou')">
+            <img src="images/thankyou.jpg" alt="Благодарность">
             <p>Открытки благодарности</p>
-            <button onclick="window.location.href='thankyou.html'">Перейти в категорию</button>
+            <button>Перейти в категорию</button>
         </div>
-        <div class="category">
-            <img src="friendship.jpg" alt="Дружба">
+        <div class="category" onclick="openModal('friendship')">
+            <img src="images/friendship.jpg" alt="Дружба">
             <p>Открытки для друзей</p>
-            <button onclick="window.location.href='friendship.html'">Перейти в категорию</button>
+            <button>Перейти в категорию</button>
         </div>
-        <div class="category">
-            <img src="random.jpg" alt="Прочее">
+        <div class="category" onclick="openModal('random')">
+            <img src="images/random.jpg" alt="Прочее">
             <p>Разные открытки</p>
-            <button onclick="window.location.href='random.html'">Перейти в категорию</button>
+            <button>Перейти в категорию</button>
         </div>
     </div>
+
+    <!-- Модальные окна -->
+    <div id="birthdayModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('birthday')">&times;</span>
+            <h2>Открытки на День Рождения</h2>
+            <p>Здесь вы найдете множество открыток для Дня Рождения. Выберите понравившуюся!</p>
+            <button onclick="window.location.href='birthday.html'">Перейти в категорию</button>
+        </div>
+    </div>
+    <!-- Повторите для других категорий -->
+
+    <script>
+        let cartCount = 0;
+
+        function addToCart() {
+            cartCount++;
+            document.getElementById('cart-count').innerText = cartCount;
+        }
+
+        function openModal(category) {
+            document.getElementById(category + "Modal").style.display = "block";
+        }
+
+        function closeModal(category) {
+            document.getElementById(category + "Modal").style.display = "none";
+        }
+    </script>
 </body>
 </html>
+
 
 
