@@ -6,90 +6,30 @@
     <title>Магазин открыток</title>
     <style>
         body { font-family: Arial, sans-serif; background-color: #ffefd5; text-align: center; }
-        .card { display: inline-block; margin: 20px; padding: 10px; border: 1px solid #ccc; background: white; }
+        .category { display: inline-block; margin: 20px; padding: 10px; border: 1px solid #ccc; background: white; }
         .cart { position: fixed; top: 10px; right: 10px; background: yellow; padding: 10px; cursor: pointer; }
     </style>
 </head>
 <body>
     <h1>Добро пожаловать в магазин открыток!</h1>
-    <div class="cart" onclick="viewCart()">Корзина (<span id="cart-count">0</span>)</div>
-    <div id="catalog">
-        <div class="card" data-name="Открытка 1" data-price="200">
-            <img src="card1.jpg" width="100" alt="Открытка 1">
-            <p>Открытка 1 - 200 руб.</p>
-            <button onclick="addToCart(this)">Добавить в корзину</button>
+    <div class="cart" onclick="window.location.href='cart.html'">Корзина (<span id="cart-count">0</span>)</div>
+    <div id="categories">
+        <div class="category">
+            <img src="birthday.jpg" width="150" alt="День Рождения">
+            <p>Открытки на День Рождения</p>
+            <button onclick="window.location.href='birthday.html'">Перейти в категорию</button>
         </div>
-        <div class="card" data-name="Открытка 2" data-price="250">
-            <img src="card2.jpg" width="100" alt="Открытка 2">
-            <p>Открытка 2 - 250 руб.</p>
-            <button onclick="addToCart(this)">Добавить в корзину</button>
+        <div class="category">
+            <img src="holiday.jpg" width="150" alt="Праздничные">
+            <p>Праздничные открытки</p>
+            <button onclick="window.location.href='holiday.html'">Перейти в категорию</button>
         </div>
-        <div class="card" data-name="Открытка 3" data-price="180">
-            <img src="card3.jpg" width="100" alt="Открытка 3">
-            <p>Открытка 3 - 180 руб.</p>
-            <button onclick="addToCart(this)">Добавить в корзину</button>
-        </div>
-        <div class="card" data-name="Открытка 4" data-price="220">
-            <img src="card4.jpg" width="100" alt="Открытка 4">
-            <p>Открытка 4 - 220 руб.</p>
-            <button onclick="addToCart(this)">Добавить в корзину</button>
-        </div>
-        <div class="card" data-name="Открытка 5" data-price="210">
-            <img src="card5.jpg" width="100" alt="Открытка 5">
-            <p>Открытка 5 - 210 руб.</p>
-            <button onclick="addToCart(this)">Добавить в корзину</button>
-        </div>
-        <div class="card" data-name="Открытка 6" data-price="230">
-            <img src="card6.jpg" width="100" alt="Открытка 6">
-            <p>Открытка 6 - 230 руб.</p>
-            <button onclick="addToCart(this)">Добавить в корзину</button>
-        </div>
-        <div class="card" data-name="Открытка 7" data-price="190">
-            <img src="card7.jpg" width="100" alt="Открытка 7">
-            <p>Открытка 7 - 190 руб.</p>
-            <button onclick="addToCart(this)">Добавить в корзину</button>
-        </div>
-        <div class="card" data-name="Открытка 8" data-price="240">
-            <img src="card8.jpg" width="100" alt="Открытка 8">
-            <p>Открытка 8 - 240 руб.</p>
-            <button onclick="addToCart(this)">Добавить в корзину</button>
-        </div>
-        <div class="card" data-name="Открытка 9" data-price="260">
-            <img src="card9.jpg" width="100" alt="Открытка 9">
-            <p>Открытка 9 - 260 руб.</p>
-            <button onclick="addToCart(this)">Добавить в корзину</button>
+        <div class="category">
+            <img src="love.jpg" width="150" alt="Любовные">
+            <p>Открытки с любовью</p>
+            <button onclick="window.location.href='love.html'">Перейти в категорию</button>
         </div>
     </div>
-
-    <script>
-        let cart = [];
-
-        function addToCart(button) {
-            let card = button.parentElement;
-            let name = card.getAttribute('data-name');
-            let price = card.getAttribute('data-price');
-            cart.push({ name, price });
-            document.getElementById('cart-count').innerText = cart.length;
-        }
-
-        function viewCart() {
-            let message = cart.map(item => `${item.name} - ${item.price} руб.`).join('\n');
-            if (cart.length > 0) {
-                message += '\n\nОтправить заказ?';
-                if (confirm(message)) {
-                    sendOrder();
-                }
-            } else {
-                alert('Корзина пуста');
-            }
-        }
-
-        function sendOrder() {
-            let mailBody = cart.map(item => `${item.name} - ${item.price} руб.`).join('%0A');
-            window.location.href = `mailto:efimof.ig@yandex.ru?subject=Заказ открыток&body=${mailBody}`;
-        }
-    </script>
 </body>
 </html>
-
 
