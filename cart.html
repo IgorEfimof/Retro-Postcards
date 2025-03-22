@@ -8,6 +8,7 @@
         body { font-family: Arial, sans-serif; background-color: #ffefd5; text-align: center; }
         .cart-item { margin: 10px; padding: 10px; border: 1px solid #ccc; background: white; display: inline-block; }
         .btn { margin: 10px; padding: 10px; background: yellow; border: none; cursor: pointer; }
+        img { width: 100px; display: block; margin: auto; }
     </style>
 </head>
 <body>
@@ -31,7 +32,8 @@
             cart.forEach((item, index) => {
                 let div = document.createElement('div');
                 div.classList.add('cart-item');
-                div.innerHTML = `<p>${item.name} - ${item.price} руб.</p>
+                div.innerHTML = `<img src="${item.image}" alt="${item.name}">
+                                 <p>${item.name} - ${item.price} руб.</p>
                                  <button onclick="removeItem(${index})">Удалить</button>`;
                 cartContainer.appendChild(div);
             });
@@ -49,7 +51,8 @@
                 return;
             }
             let mailBody = cart.map(item => `${item.name} - ${item.price} руб.`).join('%0A');
-            window.location.href = `mailto:your-email@example.com?subject=Заказ открыток&body=${mailBody}`;
+            let mailImages = cart.map(item => item.image).join('%0A');
+            window.location.href = `mailto:your-email@example.com?subject=Заказ открыток&body=${mailBody}%0A%0AИзображения:%0A${mailImages}`;
         }
 
         function clearCart() {
@@ -62,3 +65,4 @@
     </script>
 </body>
 </html>
+
