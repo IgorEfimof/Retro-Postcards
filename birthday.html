@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Категория</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #ffefd5; text-align: center; }
+        .card { display: inline-block; margin: 10px; padding: 10px; border: 1px solid #ccc; background: white; width: 200px; }
+        .btn { margin-top: 5px; padding: 5px; background: yellow; border: none; cursor: pointer; }
+        img { width: 150px; height: auto; }
+    </style>
+</head>
+<body>
+    <h1 id="category-title">Категория</h1>
+    <div id="cards-container"></div>
+    <br>
+    <a href="index.html">Вернуться на главную</a>
+    <a href="cart.html" style="margin-left: 20px;">Перейти в корзину</a>
+    
+    <script>
+        const categoryData = {
+            title: "Название категории",
+            cards: [
+                { image: "card1.jpg", name: "Открытка 1", price: "100" },
+                { image: "card2.jpg", name: "Открытка 2", price: "120" },
+                { image: "card3.jpg", name: "Открытка 3", price: "110" },
+                { image: "card4.jpg", name: "Открытка 4", price: "130" },
+                { image: "card5.jpg", name: "Открытка 5", price: "140" },
+                { image: "card6.jpg", name: "Открытка 6", price: "115" },
+                { image: "card7.jpg", name: "Открытка 7", price: "125" },
+                { image: "card8.jpg", name: "Открытка 8", price: "135" },
+                { image: "card9.jpg", name: "Открытка 9", price: "145" },
+                { image: "card10.jpg", name: "Открытка 10", price: "105" },
+                { image: "card11.jpg", name: "Открытка 11", price: "155" },
+                { image: "card12.jpg", name: "Открытка 12", price: "160" },
+                { image: "card13.jpg", name: "Открытка 13", price: "165" },
+                { image: "card14.jpg", name: "Открытка 14", price: "170" },
+                { image: "card15.jpg", name: "Открытка 15", price: "175" },
+                { image: "card16.jpg", name: "Открытка 16", price: "180" },
+                { image: "card17.jpg", name: "Открытка 17", price: "185" },
+                { image: "card18.jpg", name: "Открытка 18", price: "190" }
+            ]
+        };
+
+        document.getElementById("category-title").innerText = categoryData.title;
+        const container = document.getElementById("cards-container");
+
+        categoryData.cards.forEach(item => {
+            let div = document.createElement("div");
+            div.classList.add("card");
+            div.innerHTML = `<img src="${item.image}" alt="${item.name}">
+                             <p>${item.name} - ${item.price} руб.</p>
+                             <button class="btn" onclick='addToCart(${JSON.stringify(item)})'>Добавить в корзину</button>`;
+            container.appendChild(div);
+        });
+
+        function addToCart(item) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart.push(item);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            alert(`${item.name} добавлена в корзину!`);
+        }
+    </script>
+</body>
+</html>
