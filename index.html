@@ -24,6 +24,41 @@
             <p>Открытка 2 - 250 руб.</p>
             <button onclick="addToCart(this)">Добавить в корзину</button>
         </div>
+        <div class="card" data-name="Открытка 3" data-price="180">
+            <img src="card3.jpg" width="100" alt="Открытка 3">
+            <p>Открытка 3 - 180 руб.</p>
+            <button onclick="addToCart(this)">Добавить в корзину</button>
+        </div>
+        <div class="card" data-name="Открытка 4" data-price="220">
+            <img src="card4.jpg" width="100" alt="Открытка 4">
+            <p>Открытка 4 - 220 руб.</p>
+            <button onclick="addToCart(this)">Добавить в корзину</button>
+        </div>
+        <div class="card" data-name="Открытка 5" data-price="210">
+            <img src="card5.jpg" width="100" alt="Открытка 5">
+            <p>Открытка 5 - 210 руб.</p>
+            <button onclick="addToCart(this)">Добавить в корзину</button>
+        </div>
+        <div class="card" data-name="Открытка 6" data-price="230">
+            <img src="card6.jpg" width="100" alt="Открытка 6">
+            <p>Открытка 6 - 230 руб.</p>
+            <button onclick="addToCart(this)">Добавить в корзину</button>
+        </div>
+        <div class="card" data-name="Открытка 7" data-price="190">
+            <img src="card7.jpg" width="100" alt="Открытка 7">
+            <p>Открытка 7 - 190 руб.</p>
+            <button onclick="addToCart(this)">Добавить в корзину</button>
+        </div>
+        <div class="card" data-name="Открытка 8" data-price="240">
+            <img src="card8.jpg" width="100" alt="Открытка 8">
+            <p>Открытка 8 - 240 руб.</p>
+            <button onclick="addToCart(this)">Добавить в корзину</button>
+        </div>
+        <div class="card" data-name="Открытка 9" data-price="260">
+            <img src="card9.jpg" width="100" alt="Открытка 9">
+            <p>Открытка 9 - 260 руб.</p>
+            <button onclick="addToCart(this)">Добавить в корзину</button>
+        </div>
     </div>
 
     <script>
@@ -51,9 +86,10 @@
 
         function sendOrder() {
             let mailBody = cart.map(item => `${item.name} - ${item.price} руб.`).join('%0A');
-            window.location.href = `mailto:efimof.ig@yandex.ru?subject=Заказ открыток&body=${mailBody}`;
+            window.location.href = `mailto:your-email@example.com?subject=Заказ открыток&body=${mailBody}`;
         }
     </script>
 </body>
 </html>
+
 
