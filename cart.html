@@ -43,8 +43,7 @@
         div.classList.add("cart-item");
         div.innerHTML = `
             <div class="cart-card">
-                <img src="${item.frontImage}" alt="Лицевая сторона" class="cart-img">
-                <img src="${item.backImage}" alt="Обратная сторона" class="cart-img">
+                <img src="${item.frontImage}" alt="${item.title}" class="cart-img">
                 <p><strong>${item.title}</strong></p>
                 <p>${item.description}</p>
                 <p><strong>Год:</strong> ${item.year}</p>
@@ -54,10 +53,16 @@
         `;
         cartContainer.appendChild(div);
     });
-})
+});
 
-
-    </script>
+// Функция удаления открытки из корзины
+function removeFromCart(index) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    location.reload(); // Перезагружаем страницу
+}
+</script>
 
 </body>
 </html>
