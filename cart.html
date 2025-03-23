@@ -3,67 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Корзина</title>
+    <title>Магазин открыток</title>
     <style>
         body { font-family: Arial, sans-serif; background-color: #ffefd5; text-align: center; }
-        .cart-item { margin: 10px; padding: 10px; border: 1px solid #ccc; background: white; display: inline-block; width: 200px; }
-        .btn { margin: 10px; padding: 10px; background: yellow; border: none; cursor: pointer; }
-        img { width: 100px; display: block; margin: auto; }
-        .cart-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    background: #fff3e0;
-}
-</style>
+        .category { display: inline-block; margin: 20px; padding: 10px; border: 1px solid #ccc; background: white; width: 200px; }
+        .cart { position: fixed; top: 10px; right: 10px; background: yellow; padding: 10px; cursor: pointer; }
+        img { width: 150px; height: auto; }
+    </style>
 </head>
 <body>
-    <h1>Ваша корзина</h1>
-    <div id="cart-items"></div>
-    <button class="btn" onclick="sendOrder()">Отправить заказ</button>
-    <button class="btn" onclick="clearCart()">Очистить корзину</button>
-    <br>
-    <a href="index.html">Вернуться в магазин</a>
-    
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    let cartContainer = document.getElementById("cart-container");
-
-    if (cart.length === 0) {
-        cartContainer.innerHTML = "<p>Ваша корзина пуста.</p>";
-        return;
-    }
-
-    cart.forEach((item, index) => {
-        let div = document.createElement("div");
-        div.classList.add("cart-item");
-        div.innerHTML = `
-            <div class="cart-card">
-                <img src="${item.frontImage}" alt="${item.title}" class="cart-img">
-                <p><strong>${item.title}</strong></p>
-                <p>${item.description}</p>
-                <p><strong>Год:</strong> ${item.year}</p>
-                <p><strong>Цена:</strong> ${item.price} руб.</p>
-                <button class="remove-btn" onclick="removeFromCart(${index})">Удалить</button>
-            </div>
-        `;
-        cartContainer.appendChild(div);
-    });
-});
-
-// Функция удаления открытки из корзины
-function removeFromCart(index) {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.splice(index, 1);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    location.reload(); // Перезагружаем страницу
-}
-</script>
-
+    <h1>Добро пожаловать в магазин открыток!</h1>
+    <div class="cart" onclick="window.location.href='cart.html'">Корзина (<span id="cart-count">0</span>)</div>
+    <div id="categories">
+        <div class="category">
+            <img src="birthday.jpg" alt="День Рождения">
+            <p>Открытки на День Рождения</p>
+            <button onclick="window.location.href='birthday.html'">Перейти в категорию</button>
+        </div>
+        <div class="category">
+            <img src="holiday.jpg" alt="Праздничные">
+            <p>Праздничные открытки</p>
+            <button onclick="window.location.href='holiday.html'">Перейти в категорию</button>
+        </div>
+        <div class="category">
+            <img src="love.jpg" alt="Любовные">
+            <p>Открытки с любовью</p>
+            <button onclick="window.location.href='love.html'">Перейти в категорию</button>
+        </div>
+        <div class="category">
+            <img src="newyear.jpg" alt="Новый год">
+            <p>Новогодние открытки</p>
+            <button onclick="window.location.href='newyear.html'">Перейти в категорию</button>
+        </div>
+        <div class="category">
+            <img src="wedding.jpg" alt="Свадьба">
+            <p>Свадебные открытки</p>
+            <button onclick="window.location.href='wedding.html'">Перейти в категорию</button>
+        </div>
+        <div class="category">
+            <img src="congrats.jpg" alt="Поздравления">
+            <p>Поздравительные открытки</p>
+            <button onclick="window.location.href='congrats.html'">Перейти в категорию</button>
+        </div>
+        <div class="category">
+            <img src="thankyou.jpg" alt="Благодарность">
+            <p>Открытки благодарности</p>
+            <button onclick="window.location.href='thankyou.html'">Перейти в категорию</button>
+        </div>
+        <div class="category">
+            <img src="friendship.jpg" alt="Дружба">
+            <p>Открытки для друзей</p>
+            <button onclick="window.location.href='friendship.html'">Перейти в категорию</button>
+        </div>
+        <div class="category">
+            <img src="random.jpg" alt="Прочее">
+            <p>Разные открытки</p>
+            <button onclick="window.location.href='random.html'">Перейти в категорию</button>
+        </div>
+    </div>
 </body>
 </html>
+
 
