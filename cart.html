@@ -29,48 +29,33 @@
     <a href="index.html">Вернуться в магазин</a>
     
     <script>
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        let cartContainer = document.getElementById('cart-items');
+        document.addEventListener("DOMContentLoaded", function () {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let cartContainer = document.getElementById("cart-container");
 
-        function displayCart() {
-            cartContainer.innerHTML = '';
-            if (cart.length === 0) {
-                cartContainer.innerHTML = '<p>Корзина пуста</p>';
-                return;
-            }
-            cart.forEach((item, index) => {
-                let div = document.createElement('div');
-                div.classList.add('cart-item');
-                div.innerHTML = `<img src="${item.image}" alt="${item.name}">
-                                 <p>${item.name} - ${item.price} руб.</p>
-                                 <button onclick="removeItem(${index})">Удалить</button>`;
-                cartContainer.appendChild(div);
-            });
-        }
+    if (cart.length === 0) {
+        cartContainer.innerHTML = "<p>Ваша корзина пуста.</p>";
+        return;
+    }
 
-        function removeItem(index) {
-            cart.splice(index, 1);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            displayCart();
-        }
+    cart.forEach((item, index) => {
+        let div = document.createElement("div");
+        div.classList.add("cart-item");
+        div.innerHTML = `
+            <div class="cart-card">
+                <img src="${item.frontImage}" alt="Лицевая сторона" class="cart-img">
+                <img src="${item.backImage}" alt="Обратная сторона" class="cart-img">
+                <p><strong>${item.title}</strong></p>
+                <p>${item.description}</p>
+                <p><strong>Год:</strong> ${item.year}</p>
+                <p><strong>Цена:</strong> ${item.price} руб.</p>
+                <button class="remove-btn" onclick="removeFromCart(${index})">Удалить</button>
+            </div>
+        `;
+        cartContainer.appendChild(div);
+    });
+});
 
-        function sendOrder() {
-            if (cart.length === 0) {
-                alert('Корзина пуста');
-                return;
-            }
-            let mailBody = cart.map(item => `${item.name} - ${item.price} руб.`).join('%0A');
-            let mailImages = cart.map(item => `Изображение: ${item.image}`).join('%0A');
-            window.location.href = `mailto:efimof.ig@yandex.ru?subject=Заказ открыток&body=${mailBody}%0A%0A${mailImages}`;
-        }
-
-        function clearCart() {
-            localStorage.removeItem('cart');
-            cart = [];
-            displayCart();
-        }
-
-        displayCart();
     </script>
 
 </body>
