@@ -61,6 +61,33 @@
             <button onclick="window.location.href='random.html'">Перейти в категорию</button>
         </div>
     </div>
+    document.addEventListener("DOMContentLoaded", function () {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let cartContainer = document.getElementById("cart-container");
+
+    if (cart.length === 0) {
+        cartContainer.innerHTML = "<p>Ваша корзина пуста.</p>";
+        return;
+    }
+
+    cart.forEach((item, index) => {
+        let div = document.createElement("div");
+        div.classList.add("cart-item");
+        div.innerHTML = `
+            <div class="cart-card">
+                <img src="${item.frontImage}" alt="Лицевая сторона" class="cart-img">
+                <img src="${item.backImage}" alt="Обратная сторона" class="cart-img">
+                <p><strong>${item.title}</strong></p>
+                <p>${item.description}</p>
+                <p><strong>Год:</strong> ${item.year}</p>
+                <p><strong>Цена:</strong> ${item.price} руб.</p>
+                <button class="remove-btn" onclick="removeFromCart(${index})">Удалить</button>
+            </div>
+        `;
+        cartContainer.appendChild(div);
+    });
+});
+
 </body>
 </html>
 
