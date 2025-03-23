@@ -18,20 +18,7 @@
     padding: 10px;
     background: #fff3e0;
 }
-.cart-img {
-    width: 100px;
-    height: auto;
-    border: 1px solid #ddd;
-}
-.remove-btn {
-    background: red;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-    </style>
+</style>
 </head>
 <body>
     <h1>Ваша корзина</h1>
@@ -85,39 +72,6 @@
 
         displayCart();
     </script>
-    document.addEventListener("DOMContentLoaded", function () {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    let cartContainer = document.getElementById("cart-container");
-
-    if (cart.length === 0) {
-        cartContainer.innerHTML = "<p>Ваша корзина пуста.</p>";
-        return;
-    }
-
-    cart.forEach((item, index) => {
-        let div = document.createElement("div");
-        div.classList.add("cart-item");
-        div.innerHTML = `
-            <div class="cart-card">
-                <img src="${item.frontImage}" alt="${item.title}" class="cart-img">
-                <p><strong>${item.title}</strong></p>
-                <p>${item.description}</p>
-                <p><strong>Год:</strong> ${item.year}</p>
-                <p><strong>Цена:</strong> ${item.price} руб.</p>
-                <button class="remove-btn" onclick="removeFromCart(${index})">Удалить</button>
-            </div>
-        `;
-        cartContainer.appendChild(div);
-    });
-});
-
-// Функция удаления открытки из корзины
-function removeFromCart(index) {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.splice(index, 1);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    location.reload(); // Перезагружаем страницу
-}
 
 </body>
 </html>
