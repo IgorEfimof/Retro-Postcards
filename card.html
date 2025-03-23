@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Открытка</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #ffefd5; text-align: center; }
+        .card-container { display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: 20px; }
+        .card-container img { width: 250px; height: auto; border: 1px solid #ccc; }
+        .description { margin-top: 20px; }
+        .btn { margin-top: 10px; padding: 10px; background: yellow; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1 id="card-title">Название открытки</h1>
+    
+    <div class="card-container">
+        <img id="front-image" src="" alt="Лицевая сторона">
+        <img id="back-image" src="" alt="Обратная сторона">
+    </div>
+    
+    <div class="description">
+        <p id="card-description">Описание открытки</p>
+        <p><strong>Год:</strong> <span id="card-year"></span></p>
+        <p><strong>Цена:</strong> <span id="card-price"></span> руб.</p>
+        <button class="btn" onclick="addToCart()">Добавить в корзину</button>
+    </div>
+
+    <br>
+    <a href="#" onclick="goBack()">Вернуться назад</a>
+    
+    <script>
+        // Получаем параметры из URL
+        const params = new URLSearchParams(window.location.search);
+        const cardData = {
+            title: params.get(\"title\") || \"Открытка\",
+            frontImage: params.get(\"front\") || \"front.jpg\",
+            backImage: params.get(\"back\") || \"back.jpg\",
+            description: params.get(\"desc\") || \"Описание отсутствует.\",
+            year: params.get(\"year\") || \"2024\",
+            price: params.get(\"price\") || \"100\"
+        };
+
+        // Устанавливаем данные в HTML
+        document.getElementById(\"card-title\").innerText = cardData.title;
+        document.getElementById(\"front-image\").src = cardData.frontImage;
+        document.getElementById(\"back-image\").src = cardData.backImage;
+        document.getElementById(\"card-description\").innerText = cardData.description;
+        document.getElementById(\"card-year\").innerText = cardData.year;
+        document.getElementById(\"card-price\").innerText = cardData.price;
+
+        function addToCart() {
+            let cart = JSON.parse(localStorage.getItem(\"cart\")) || [];
+            cart.push(cardData);
+            localStorage.setItem(\"cart\", JSON.stringify(cart));
+            alert(`${cardData.title} добавлена в корзину!`);
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
