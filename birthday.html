@@ -48,13 +48,18 @@
         const container = document.getElementById("cards-container");
 
         categoryData.cards.forEach(item => {
-            let div = document.createElement("div");
-            div.classList.add("card");
-            div.innerHTML = `<img src="${item.image}" alt="${item.name}">
-                             <p>${item.name} - ${item.price} руб.</p>
-                             <button class="btn" onclick='addToCart(${JSON.stringify(item)})'>Добавить в корзину</button>`;
-            container.appendChild(div);
-        });
+    let div = document.createElement("div");
+    div.classList.add("card");
+    div.innerHTML = `
+        <a href="card.html?title=${encodeURIComponent(item.name)}&front=${encodeURIComponent(item.image)}&back=${encodeURIComponent(item.back)}&desc=${encodeURIComponent(item.description)}&year=${encodeURIComponent(item.year)}&price=${encodeURIComponent(item.price)}">
+            <img src="${item.image}" alt="${item.name}">
+        </a>
+        <p>${item.name} - ${item.price} руб.</p>
+        <button class="btn" onclick='addToCart(${JSON.stringify(item)})'>Добавить в корзину</button>
+    `;
+    container.appendChild(div);
+});
+
 
         function addToCart(item) {
             let cart = JSON.parse(localStorage.getItem("cart")) || [];
