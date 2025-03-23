@@ -33,34 +33,38 @@
     
     <script>
         // Получаем параметры из URL
-        const params = new URLSearchParams(window.location.search);
-        const cardData = {
-            title: params.get(\"title\") || \"Открытка\",
-            frontImage: params.get(\"front\") || \"front.jpg\",
-            backImage: params.get(\"back\") || \"back.jpg\",
-            description: params.get(\"desc\") || \"Описание отсутствует.\",
-            year: params.get(\"year\") || \"2024\",
-            price: params.get(\"price\") || \"100\"
-        };
+const params = new URLSearchParams(window.location.search);
 
-        // Устанавливаем данные в HTML
-        document.getElementById(\"card-title\").innerText = cardData.title;
-        document.getElementById(\"front-image\").src = cardData.frontImage;
-        document.getElementById(\"back-image\").src = cardData.backImage;
-        document.getElementById(\"card-description\").innerText = cardData.description;
-        document.getElementById(\"card-year\").innerText = cardData.year;
-        document.getElementById(\"card-price\").innerText = cardData.price;
+// Проверяем, есть ли параметры
+if (params.has("title") && params.has("front")) {
+    document.getElementById("card-title").innerText = params.get("title");
+    document.getElementById("front-image").src = params.get("front");
+    document.getElementById("back-image").src = params.get("back");
+    document.getElementById("card-description").innerText = params.get("desc");
+    document.getElementById("card-year").innerText = params.get("year");
+    document.getElementById("card-price").innerText = params.get("price");
+} else {
+    document.body.innerHTML = "<h2>Ошибка: Данные открытки не найдены!</h2><a href='index.html'>Вернуться на главную</a>";
+}
 
-        function addToCart() {
-            let cart = JSON.parse(localStorage.getItem(\"cart\")) || [];
-            cart.push(cardData);
-            localStorage.setItem(\"cart\", JSON.stringify(cart));
-            alert(`${cardData.title} добавлена в корзину!`);
-        }
+// Функция добавления в корзину
+function addToCart() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    
+    let cardData = {
+        title: params.get("title"),
+        frontImage: params.get("front"),
+        backImage: params.get("back"),
+        description: params.get("desc"),
+        year: params.get("year"),
+        price: params.get("price")
+    };
 
-        function goBack() {
-            window.history.back();
-        }
+    cart.push(cardData);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(`${cardData.title} добавлена в корзину!`);
+}
+
     </script>
 </body>
 </html>
