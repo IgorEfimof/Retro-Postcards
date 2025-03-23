@@ -276,6 +276,15 @@
         function closeModal(category) {
             document.getElementById(category + "Modal").style.display = "none";
         }
+        // Функция обновления количества товаров в корзине
+function updateCartCount() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    document.getElementById("cart-count").innerText = cart.length;
+}
+
+// Вызываем при загрузке страницы
+document.addEventListener("DOMContentLoaded", updateCartCount);
+
     </script>
 </body>
 </html>
