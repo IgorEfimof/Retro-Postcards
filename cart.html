@@ -21,18 +21,21 @@
             container.innerHTML = cart.length === 0 ? "<p>Корзина пуста.</p>" : "";
 
             cart.forEach((item, index) => {
-                totalPrice += item.price * item.quantity;
+                let itemPrice = parseFloat(item.price) || 0; // Преобразуем в число
+                let itemTotal = itemPrice * item.quantity; 
+                totalPrice += itemTotal;
+
                 container.innerHTML += `
                     <div>
                         <img src="${item.frontImage}" width="100">
                         <img src="${item.backImage}" width="100">
-                        <p>${item.title} - ${item.price} руб. (x${item.quantity})</p>
+                        <p>${item.title} - ${itemPrice} руб. (x${item.quantity}) = ${itemTotal} руб.</p>
                         <button onclick="removeFromCart(${index})">Удалить</button>
                     </div>
                 `;
             });
 
-            document.getElementById("total-price").innerText = totalPrice;
+            document.getElementById("total-price").innerText = totalPrice.toFixed(2);
         }
 
         function removeFromCart(index) {
@@ -57,12 +60,15 @@
             let orderDetails = "🛍 Заказ открыток:\n";
             let total = 0;
             cart.forEach(item => {
-                orderDetails += `📌 ${item.title}\nЦена: ${item.price} руб. (x${item.quantity})\n`;
+                let itemPrice = parseFloat(item.price) || 0;
+                let itemTotal = itemPrice * item.quantity;
+                total += itemTotal;
+
+                orderDetails += `📌 ${item.title}\nЦена: ${itemPrice} руб. (x${item.quantity}) = ${itemTotal} руб.\n`;
                 orderDetails += `🖼 Фото: ${item.frontImage}, ${item.backImage}\n\n`;
-                total += item.price * item.quantity;
             });
 
-            orderDetails += `💰 Общая сумма: ${total} руб.`;
+            orderDetails += `💰 Общая сумма: ${total.toFixed(2)} руб.`;
 
             let mailtoLink = `mailto:efimof.ig@yandex.ru?subject=Заказ открыток&body=${encodeURIComponent(orderDetails)}`;
             window.location.href = mailtoLink;
@@ -75,6 +81,7 @@
     </script>
 </body>
 </html>
+
 
 
 
