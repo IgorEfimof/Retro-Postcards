@@ -8,16 +8,20 @@
 <body>
     <h1>🛒 Ваша корзина</h1>
     <div id="cart-container"></div>
-    <button onclick="clearCart()">Очистить корзину</button>
-    <a href="index.html"><button>На главную</button></a>
+    <p><strong>Общая сумма: <span id="total-price">0</span> руб.</strong></p>
+    <button onclick="sendOrder()">🛍 Заказать</button>
+    <button onclick="clearCart()">❌ Очистить корзину</button>
+    <a href="index.html"><button>🏠 На главную</button></a>
 
     <script>
         function loadCart() {
             let cart = JSON.parse(localStorage.getItem("cart")) || [];
             let container = document.getElementById("cart-container");
+            let totalPrice = 0;
             container.innerHTML = cart.length === 0 ? "<p>Корзина пуста.</p>" : "";
 
             cart.forEach((item, index) => {
+                totalPrice += item.price * item.quantity;
                 container.innerHTML += `
                     <div>
                         <img src="${item.frontImage}" width="100">
@@ -27,6 +31,8 @@
                     </div>
                 `;
             });
+
+            document.getElementById("total-price").innerText = totalPrice;
         }
 
         function removeFromCart(index) {
@@ -41,10 +47,35 @@
             loadCart();
         }
 
+        function sendOrder() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            if (cart.length === 0) {
+                alert("Корзина пуста!");
+                return;
+            }
+
+            let orderDetails = "🛍 Заказ открыток:\n";
+            let total = 0;
+            cart.forEach(item => {
+                orderDetails += `📌 ${item.title}\nЦена: ${item.price} руб. (x${item.quantity})\n`;
+                orderDetails += `🖼 Фото: ${item.frontImage}, ${item.backImage}\n\n`;
+                total += item.price * item.quantity;
+            });
+
+            orderDetails += `💰 Общая сумма: ${total} руб.`;
+
+            let mailtoLink = `mailto:efimof.ig@yandex.ru?subject=Заказ открыток&body=${encodeURIComponent(orderDetails)}`;
+            window.location.href = mailtoLink;
+
+            clearCart();
+            alert("Заказ отправлен!");
+        }
+
         document.addEventListener("DOMContentLoaded", loadCart);
     </script>
 </body>
 </html>
+
 
 
 
