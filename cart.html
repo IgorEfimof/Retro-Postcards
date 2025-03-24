@@ -3,66 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Магазин открыток</title>
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #ffefd5; text-align: center; }
-        .category { display: inline-block; margin: 20px; padding: 10px; border: 1px solid #ccc; background: white; width: 200px; }
-        .cart { position: fixed; top: 10px; right: 10px; background: yellow; padding: 10px; cursor: pointer; }
-        img { width: 150px; height: auto; }
-    </style>
+    <title>Корзина</title>
 </head>
 <body>
-    <h1>Добро пожаловать в магазин открыток!</h1>
-    <div class="cart" onclick="window.location.href='cart.html'">Корзина (<span id="cart-count">0</span>)</div>
-    <div id="categories">
-        <div class="category">
-            <img src="birthday.jpg" alt="День Рождения">
-            <p>Открытки на День Рождения</p>
-            <button onclick="window.location.href='birthday.html'">Перейти в категорию</button>
-        </div>
-        <div class="category">
-            <img src="holiday.jpg" alt="Праздничные">
-            <p>Праздничные открытки</p>
-            <button onclick="window.location.href='holiday.html'">Перейти в категорию</button>
-        </div>
-        <div class="category">
-            <img src="love.jpg" alt="Любовные">
-            <p>Открытки с любовью</p>
-            <button onclick="window.location.href='love.html'">Перейти в категорию</button>
-        </div>
-        <div class="category">
-            <img src="newyear.jpg" alt="Новый год">
-            <p>Новогодние открытки</p>
-            <button onclick="window.location.href='newyear.html'">Перейти в категорию</button>
-        </div>
-        <div class="category">
-            <img src="wedding.jpg" alt="Свадьба">
-            <p>Свадебные открытки</p>
-            <button onclick="window.location.href='wedding.html'">Перейти в категорию</button>
-        </div>
-        <div class="category">
-            <img src="congrats.jpg" alt="Поздравления">
-            <p>Поздравительные открытки</p>
-            <button onclick="window.location.href='congrats.html'">Перейти в категорию</button>
-        </div>
-        <div class="category">
-            <img src="thankyou.jpg" alt="Благодарность">
-            <p>Открытки благодарности</p>
-            <button onclick="window.location.href='thankyou.html'">Перейти в категорию</button>
-        </div>
-        <div class="category">
-            <img src="friendship.jpg" alt="Дружба">
-            <p>Открытки для друзей</p>
-            <button onclick="window.location.href='friendship.html'">Перейти в категорию</button>
-        </div>
-        <div class="category">
-            <img src="random.jpg" alt="Прочее">
-            <p>Разные открытки</p>
-            <button onclick="window.location.href='random.html'">Перейти в категорию</button>
-        </div>
-    </div>
-    
+    <h1>🛒 Ваша корзина</h1>
+    <div id="cart-container"></div>
+    <button onclick="clearCart()">Очистить корзину</button>
+    <a href="index.html"><button>На главную</button></a>
+
+    <script>
+        function loadCart() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let container = document.getElementById("cart-container");
+            container.innerHTML = cart.length === 0 ? "<p>Корзина пуста.</p>" : "";
+
+            cart.forEach((item, index) => {
+                container.innerHTML += `
+                    <div>
+                        <img src="${item.frontImage}" width="100">
+                        <img src="${item.backImage}" width="100">
+                        <p>${item.title} - ${item.price} руб. (x${item.quantity})</p>
+                        <button onclick="removeFromCart(${index})">Удалить</button>
+                    </div>
+                `;
+            });
+        }
+
+        function removeFromCart(index) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart.splice(index, 1);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            loadCart();
+        }
+
+        function clearCart() {
+            localStorage.removeItem("cart");
+            loadCart();
+        }
+
+        document.addEventListener("DOMContentLoaded", loadCart);
+    </script>
 </body>
 </html>
+
 
 
