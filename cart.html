@@ -4,14 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Корзина</title>
+    <style>
+        .cart-item { display: flex; align-items: center; margin-bottom: 10px; }
+        .cart-item img { width: 100px; margin-right: 10px; }
+        .cart-actions { margin-top: 20px; }
+    </style>
 </head>
 <body>
     <h1>🛒 Ваша корзина</h1>
     <div id="cart-container"></div>
     <p><strong>Общая сумма: <span id="total-price">0</span> руб.</strong></p>
-    <button onclick="sendOrder()">🛍 Заказать</button>
-    <button onclick="clearCart()">❌ Очистить корзину</button>
-    <a href="index.html"><button>🏠 На главную</button></a>
+
+    <div class="cart-actions">
+        <button onclick="sendOrder()">🛍 Заказать</button>
+        <button onclick="clearCart()">❌ Очистить корзину</button>
+        <a href="index.html"><button>🏠 На главную</button></a>
+    </div>
 
     <script>
         function loadCart() {
@@ -21,15 +29,16 @@
             container.innerHTML = cart.length === 0 ? "<p>Корзина пуста.</p>" : "";
 
             cart.forEach((item, index) => {
-                let itemPrice = parseFloat(item.price) || 0; // Преобразуем в число
-                let itemTotal = itemPrice * item.quantity; 
+                let itemPrice = parseFloat(item.price) || 0; 
+                let itemQuantity = parseInt(item.quantity) || 1; 
+                let itemTotal = itemPrice * itemQuantity; 
                 totalPrice += itemTotal;
 
                 container.innerHTML += `
-                    <div>
-                        <img src="${item.frontImage}" width="100">
-                        <img src="${item.backImage}" width="100">
-                        <p>${item.title} - ${itemPrice} руб. (x${item.quantity}) = ${itemTotal} руб.</p>
+                    <div class="cart-item">
+                        <img src="${item.frontImage}">
+                        <img src="${item.backImage}">
+                        <p>${item.title} - ${itemPrice} руб. (x${itemQuantity}) = ${itemTotal} руб.</p>
                         <button onclick="removeFromCart(${index})">Удалить</button>
                     </div>
                 `;
@@ -61,10 +70,11 @@
             let total = 0;
             cart.forEach(item => {
                 let itemPrice = parseFloat(item.price) || 0;
-                let itemTotal = itemPrice * item.quantity;
+                let itemQuantity = parseInt(item.quantity) || 1;
+                let itemTotal = itemPrice * itemQuantity;
                 total += itemTotal;
 
-                orderDetails += `📌 ${item.title}\nЦена: ${itemPrice} руб. (x${item.quantity}) = ${itemTotal} руб.\n`;
+                orderDetails += `📌 ${item.title}\nЦена: ${itemPrice} руб. (x${itemQuantity}) = ${itemTotal} руб.\n`;
                 orderDetails += `🖼 Фото: ${item.frontImage}, ${item.backImage}\n\n`;
             });
 
@@ -81,6 +91,7 @@
     </script>
 </body>
 </html>
+
 
 
 
