@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Категория</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #ffefd5; text-align: center; }
+        .card { display: inline-block; margin: 10px; padding: 10px; border: 1px solid #ccc; background: white; width: 200px; }
+        .btn { margin-top: 5px; padding: 5px; background: yellow; border: none; cursor: pointer; }
+        img { width: 150px; height: auto; }
+    </style>
+</head>
+<body>
+    <h1 id="category-title">Транспорт</h1>
+    <div id="cards-container"></div>
+    <br>
+    <a href="index.html">Вернуться на главную</a>
+    <a href="cart.html" style="margin-left: 20px;">Перейти в корзину</a>
+    
+    <script>
+        const categoryData = {
+    title: "Открытки Транспорт",
+    cards: [
+        { image: "images/transport1_front.jpg", 
+            back: "images/transport1_back.jpg", 
+            name: "Открытка 1", 
+            description: "Яркая открытка с поздравлением!", 
+            year: "1960", 
+            price: "70" },
+        { image: "images/transport2_front.jpg", 
+            back: "images/transport2_back.jpg", 
+            name: "Открытка 2", 
+            description: "С днем рождения! Худ Афонин", 
+            year: "?", 
+            price: "60" },
+        { image: "images/transport3_front.jpg", 
+            back: "images/transport3_back.jpg", 
+            name: "Открытка 3", 
+            description: "С Днём Рождения! Расти Большой! Худ Барсукова. Современная открытка. Большой формат. Двойная", 
+            year: "2009", 
+            price: "75" },
+        { image: "images/transport4_front.jpg", 
+            back: "images/transport4_back.jpg", 
+            name: "Открытка 4", 
+            description: "Поздравляем с днем рождения! Худ. Воронин. Чистая", 
+            year: "1987", 
+            price: "30" },
+        { image: "images/transport5_front.jpg", 
+            back: "images/transport5_back.jpg", 
+            name: "Открытка 5", 
+            description: "С днём рождения Малыш! Худ А. Путина. Чистая, двойная", 
+            year: "1978", 
+            price: "60" },
+        { image: "images/transport6_front.jpg", 
+            back: "images/transport6_back.jpg", 
+            name: "Открытка 6", 
+            description: "С днём рождения! Худ Модель Почтовая карточка. Подписана", 
+            year: "1963", 
+            price: "70" },
+        { image: "images/transport7_front.jpg", 
+            back: "images/transport7_back.jpg", 
+            name: "Открытка 7", 
+            description: "С днём рождения! Поздравительная открытка. Изд г. Казань, фотокомбинат ММР ТАССР. Подписана", 
+            year: "1962", 
+            price: "80" },
+        { image: "images/transport8_front.webp", 
+            back: "images/transport8_back.webp", 
+            name: "Открытка 8", 
+            description: "Рождение Иисуса, Бурж. Гебурт Кристи Рождество Христово Изд Венгрия", 
+            year: "?", 
+            price: "80" },
+        { image: "images/transport9_front.jpg", 
+            back: "images/transport9_back.jpg", 
+            name: "Открытка 9", 
+            description: "С днём рождения! Худ Макарова. Подписана", 
+            year: "1991", 
+            price: "30" },
+        { image: "images/transport10_front.jpg", 
+            back: "images/transport10_back.jpg", 
+            name: "Открытка 10", 
+            description: "С днём рождения! Современная открытка. Подписана", 
+            year: "1996", 
+            price: "30" },
+        { image: "images/transport11_front.jpg", 
+            back: "images/transport11_back.jpg", 
+            name: "Открытка 11", 
+            description: "С днем рождения! Жукова", 
+            year: "1991", 
+            price: "35" },
+        { image: "images/transport12_front.jpg", 
+            back: "images/transport12_back.jpg", 
+            name: "Открытка 12", 
+            description: "Т. Г. Шевченко. 150 лет со дня рождения", 
+            year: "1960-е гг", 
+            price: "140" },
+        { image: "images/transport13_front.jpg", 
+            back: "images/transport13_back.jpg", 
+            name: "Открытка 13", 
+            description: "С Днем рождения! Худ И. Макаров. Изд Марка. Литера В", 
+            year: "1997", 
+            price: "250" },
+        { image: "images/transport14_front.jpg", 
+            back: "images/transport14_back.jpg", 
+            name: "Открытка 14", 
+            description: "Н. А. Некрасов. 150 - лет со дня рождения. Худ Н. Вихрев, Е. Вихрев", 
+            year: "1971", 
+            price: "50" },
+        { image: "images/transport15_front.jpg", 
+            back: "images/transport15_back.jpg", 
+            name: "Открытка 15", 
+            description: "С днём рождения! Тиснение. Подписана. Двойная", 
+            year: "1960-е гг", 
+            price: "80" },
+        { image: "images/transport16_front.jpg", 
+            back: "images/transport16_back.jpg", 
+            name: "Открытка 16", 
+            description: "В. И. Ленин. 100 лет со дня рождения. Гашение. Марка. Чистая", 
+            year: "1968", 
+            price: "100" },
+        { image: "images/transport17_front.jpg", 
+            back: "images/transport17_back.jpg", 
+            name: "Открытка 17", 
+            description: "С днём рождения! Открытка мини. Двойная. Подписана", 
+            year: "1990-е гг", 
+            price: "30" },
+        { image: "images/transport18_front.jpg", 
+            back: "images/transport18_back.jpg", 
+            name: "Открытка 18", 
+            description: "С днём рождения! Худ Александров. Двойная. Подписана", 
+            year: "1997", 
+            price: "30" }
+    ]
+};
+
+
+        document.getElementById("category-title").innerText = categoryData.title;
+        const container = document.getElementById("cards-container");
+
+        categoryData.cards.forEach(item => {
+    let div = document.createElement("div");
+    div.classList.add("card");
+    div.innerHTML = `
+        <a href="card.html?title=${encodeURIComponent(item.name)}&front=${encodeURIComponent(item.image)}&back=${encodeURIComponent(item.back)}&desc=${encodeURIComponent(item.description)}&year=${encodeURIComponent(item.year)}&price=${encodeURIComponent(item.price)}">
+            <img src="${item.image}" alt="${item.name}">
+        </a>
+        <p>${item.name} - ${item.price} руб.</p>
+        <button class="btn" onclick='addToCart(${JSON.stringify(item)})'>Добавить в корзину</button>
+    `;
+    container.appendChild(div);
+});
+
+
+        function addToCart(item) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart.push(item);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            alert(`${item.name} добавлена в корзину!`);
+        }
+    </script>
+</body>
+</html>
