@@ -185,6 +185,11 @@
             <p>Разные открытки</p>
             <button>Перейти в категорию</button>
         </div>
+        <div class="category" onclick="openModal('random')">
+            <img src="images/random.jpg" alt="Транспорт">
+            <p>Разные Транспорт</p>
+            <button>Перейти в категорию</button>
+        </div>
     </div>
 
     <!-- Модальные окна -->
@@ -264,6 +269,13 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('random')">&times;</span>
             <h2>Разные</h2>
+            <p>Здесь вы найдете множество Разных открыток! Выберите понравившуюся!</p>
+            <button onclick="window.location.href='random.html'">Перейти в категорию</button>
+        </div>
+        <div id="randomModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('random')">&times;</span>
+            <h2>Транспорт</h2>
             <p>Здесь вы найдете множество Разных открыток! Выберите понравившуюся!</p>
             <button onclick="window.location.href='random.html'">Перейти в категорию</button>
         </div>
